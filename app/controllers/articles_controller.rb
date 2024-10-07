@@ -40,6 +40,15 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def destroy
+    # DBから記事を取得してdestroyメソッドを呼び出す
+    @article = Article.find(params[:id])
+    @article.destroy
+
+    # ステータスコード303でrootパスにリダイレクトする
+    redirect_to root_path, status: :see_other
+  end
+
   private
     def article_params
       params.require(:article).permit(:title, :body)
